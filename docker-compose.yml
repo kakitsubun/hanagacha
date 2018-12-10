@@ -1,0 +1,36 @@
+# PHP + nginx + mysql + redis
+version: "2"
+services:
+  nginx:
+    build: ./docker/nginx
+    image: hanagacha_nginx
+    links:
+      - php
+    volumes:
+      - /Users/Kakitsubun/Dropbox/hanagacha:/var/www/html:ro
+    ports:
+      - "8080:80"
+
+  php: 
+    build: ./docker/php
+    image: hanagacha_php
+    depends_on:
+      - mysql
+    volumes:
+      - /Users/Kakitsubun/Dropbox/hanagacha:/var/www/html
+    working_dir: /var/www/html/
+    command: /bin/bash init.sh
+    stdin_open: true
+    tty: true
+
+  redis:
+    build: ./docker/redis
+    image: hanagacha_redis
+    command: redis-server --appendonly yes
+
+  mysql:
+    build: ./docker/mysql
+    image: hanagacha_mysql
+    environment:
+      - "TZ=Asia/Tokyo"
+      - "MYSQL_ROOT_PASSWORD=root"
