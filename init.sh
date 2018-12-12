@@ -1,14 +1,17 @@
 #!/bin/sh
-# if vendor not exist
-
 chmod -R 777 storage
 
-if [ ! -d "vendor" ] 
+if [ ! -f ".env" ] 
 then
+    if [ -d "vendor" ] 
+    then
+        rm -rf vendor
+    fi
     mkdir vendor
     chmod -R 777 vendor
     composer install
-    php artisan make:database hanagacha
+    cp -f env.local .env
+    php artisan key:generate
 fi
 
 composer update
