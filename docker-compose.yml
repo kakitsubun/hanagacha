@@ -7,7 +7,7 @@ services:
     links:
       - php
     volumes:
-      - /Users/Kakitsubun/Dropbox/hanagacha:/var/www/html:ro
+      - ./:/var/www/html:ro
     ports:
       - "8080:80"
 
@@ -17,7 +17,7 @@ services:
     depends_on:
       - mysql
     volumes:
-      - /Users/Kakitsubun/Dropbox/hanagacha:/var/www/html
+      - ./:/var/www/html
     working_dir: /var/www/html/
     command: /bin/bash init.sh
     stdin_open: true
