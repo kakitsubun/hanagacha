@@ -16,6 +16,7 @@ services:
     image: hanagacha_php
     depends_on:
       - mysql
+      - redis
     volumes:
       - ./:/var/www/html
     working_dir: /var/www/html/
