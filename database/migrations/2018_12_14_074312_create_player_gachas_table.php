@@ -15,6 +15,8 @@ class CreatePlayerGachasTable extends Migration
     {
         Schema::create('player_gachas', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('gacha_id')->comment('ガチャID');
+            $table->string('player_name')->comment('プレイヤー名');
             $table->timestamps();
         });
     }

@@ -15,6 +15,10 @@ class CreateGachasTable extends Migration
     {
         Schema::create('gachas', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->comment('ガチャ項目名');
+            $table->tinyInteger('rarity')->comment('レアリティ');
+            $table->boolean('is_active')->comment('アクティブ状況');
+            $table->integer('weight')->comment('確率');
             $table->timestamps();
         });
     }
