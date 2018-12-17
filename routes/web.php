@@ -14,3 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'gacha'], function () {
+    Route::get('', 'GachaController@index');
+    Route::post('store', 'GachaController@store');
+    Route::post('delete', 'GachaController@delete');
+    Route::post('update', 'GachaController@update');
+});
+
+Route::group(['prefix' => 'player-gacha'], function () {
+    Route::get('', 'PlayerGachaController@index');
+    Route::post('gacha', 'PlayerGachaController@store');
+    Route::post('result', 'Playe$bachaController@result');
+});
