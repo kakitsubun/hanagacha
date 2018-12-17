@@ -27,10 +27,13 @@ local-docker-down:
 create/controller:
 	docker exec -d hanagacha_php_1 bash -c "php artisan make:controller $(CONTROLLER_NAME)Controller"
 
+make/dir/view:
+	mkdir ./resources/views/$(VIEW_DIR_NAME)
+
 # ex:make VIEW_NAME=test create/view
 # ex:make VIEW_NAME=admin/test create/view
 create/view:
-	docker exec -d hanagacha_php_1 bash -c "touch ./resources/views/$(VIEW_NAME).blade.php"
+	touch ./resources/views/$(VIEW_NAME).blade.php
 
 create/model:
 	docker exec -d hanagacha_php_1 bash -c "php artisan make:model $(MODEL_NAME) -m"
