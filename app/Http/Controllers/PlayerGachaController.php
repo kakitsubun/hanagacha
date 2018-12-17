@@ -8,7 +8,7 @@ class PlayerGachaController extends Controller
 {
     public function index() 
     {
-        return view('player_gacha.index');
+        return view('player-gacha.index');
     }
 
     public function gacha()
@@ -18,6 +18,6 @@ class PlayerGachaController extends Controller
 
     public function result()
     {
-        return view('player_gacha.result');
+        return view('player-gacha.result');
     }
 }
