@@ -20,18 +20,12 @@ class GachaController extends Controller
 
     public function store()
     {
-        $objGacha = new Gacha();
+        $strName = Input::get('name', '');
+        $intWeight = (int)Input::get('weight', 0);
+        $intRarity = (int)Input::get('rarity', 1);
+        $boolIsActive = (boolean)Input::get('is_active', true);
 
-        $objGacha->name = Input::get('name', '');
-        $objGacha->weight = (int)Input::get('weight', 0);
-        $objGacha->rarity = (int)Input::get('rarity', 1);
-        $objGacha->is_active = (boolean)Input::get('is_active', true);
-
-        $strMessage = "Add Gacha Item Failed";
-        if ($objGacha->save()) {
-            $strMessage = "Add Gacha Item Successed";
-            return redirect('gacha?m=' . $strMessage);
-        }
+        $strMessage = Gacha::store($strName, $intWeight, $intRarity, $boolIsActive);
         return redirect('gacha?m=' . $strMessage);
     }
 
@@ -61,18 +55,13 @@ class GachaController extends Controller
             $strMessage = "Invaid Gacha ID";
             return redirect('gacha?m=' . $strMessage);
         }
-        $objGacha = Gacha::find($intGachaId);
 
-        $objGacha->name = Input::get('name', '');
-        $objGacha->weight = (int)Input::get('weight', 0);
-        $objGacha->rarity = (int)Input::get('rarity', 1);
-        $objGacha->is_active = (boolean)Input::get('is_active', true);
+        $strName = Input::get('name', '');
+        $intWeight = (int)Input::get('weight', 0);
+        $intRarity = (int)Input::get('rarity', 1);
+        $boolIsActive = (boolean)Input::get('is_active', true);
 
-        $strMessage = "Update Gacha Item Failed";
-        if ($objGacha->save()) {
-            $strMessage = "Update Gacha Item Successed";
-            return redirect('gacha?m=' . $strMessage);
-        }
+        $strMessage = Gacha::store($strName, $intWeight, $intRarity, $boolIsActive, $intGachaId);
         return redirect('gacha?m=' . $strMessage);
     }
 }
