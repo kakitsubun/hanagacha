@@ -20,7 +20,8 @@ jobs:
       - run:
           name: Start ssh-keyscan
           command: |
-            ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts
+            ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts |
+            ssh-keyscan ${HOST_NAME_AZURE} >> ~/.ssh/known_hosts
       - deploy:
           name: Start GCP Deploy
           command: |
