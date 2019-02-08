@@ -26,7 +26,7 @@ jobs:
           name: Start Azure Deploy:Rsync
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              rsync -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME_AZURE}@${HOST_NAME_AZURE}:/var/www/html/ |
+              rsync -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME_AZURE}@${HOST_NAME_AZURE}:/var/www/html/
             fi
       - deploy:
           name: Start Azure Deploy:Shell
