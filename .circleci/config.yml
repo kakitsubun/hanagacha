@@ -23,14 +23,9 @@ jobs:
             ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts |
             ssh-keyscan ${HOST_NAME_AZURE} >> ~/.ssh/known_hosts
       - deploy:
-          name: Start GCP Deploy
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              rsync -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:/var/www/html/
-            fi
-      - deploy:
           name: Start Azure Deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              rsync -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME_AZURE}@${HOST_NAME_AZURE}:/var/www/html/
+              rsync -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME_AZURE}@${HOST_NAME_AZURE}:/var/www/html/ |
+              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html;sh deploy.sh;"
             fi
