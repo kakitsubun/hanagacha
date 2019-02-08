@@ -1,6 +1,6 @@
 #!/bin/bash
 ## CP File
-cp ../env_files/.env ./
+cp ../env_files/.env ./.env
 
 if [ -d "vendor" ]
 then
@@ -11,7 +11,7 @@ chmod -R 777 vendor
 chmod -R 777 storage
 
 composer install
-php artisan migrate
+php artisan migrate --force
 php artisan view:clear
 
 ## cp
