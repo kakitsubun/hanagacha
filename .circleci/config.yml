@@ -32,5 +32,5 @@ jobs:
           name: Start Azure Deploy:Shell
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html;sudo sh deploy.sh;"
+              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html;sudo sh deploy.sh hana;"
             fi

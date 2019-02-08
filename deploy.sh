@@ -7,18 +7,19 @@ then
     rm -rf vendor
 fi
 mkdir vendor
-chmod -R 755 storage
-chmod -R 755 vendor
+# Change owner to mode for next deploy
+if [ $# -gt 0 ]
+then
+    echo "Start Change Mode & Owner"
+    chmod -R 755 ./
+    chown -R $1:$1 ./
+fi
 
+echo "Start Update Project"
 composer install
 php artisan migrate --force
+
+echo "Start Clear Project"
 php artisan view:clear
 
-# Change owner to mode for next deploy
-USERNAME=$(whoami)
-chmod -R 755 ./
-chown -R $USERNAME:$USERNAME ./
-
-## cp
-#npm dev
 
