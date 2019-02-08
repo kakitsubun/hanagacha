@@ -27,5 +27,5 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               rsync -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME_AZURE}@${HOST_NAME_AZURE}:/var/www/html/ |
-              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html;sh deploy.sh;"
+              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html;sudo sh deploy.sh;"
             fi

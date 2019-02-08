@@ -1,8 +1,14 @@
 #!/bin/bash
 ## CP File
-cp ../env_files/*.* ./
+cp ../env_files/.env ./
 
-rm -rf vendor
+if [ -d "vendor" ]
+then
+    rm -rf vendor
+fi
+mkdir vendor
+chmod -R 777 vendor
+chmod -R 777 storage
 
 composer install
 php artisan migrate
