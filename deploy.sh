@@ -15,10 +15,9 @@ php artisan migrate --force
 php artisan view:clear
 
 # Change owner to mode for next deploy
-USERNAME=$(whoami)
-chmod -R 755 ./
-chown -R $USERNAME:$USERNAME ./
-
-## cp
-#npm dev
+if $# > 0
+then
+    chmod -R 755 ./
+    chown -R $0:$0 ./
+fi
 
