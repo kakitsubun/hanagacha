@@ -22,15 +22,21 @@ jobs:
           command: |
             ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts |
             ssh-keyscan ${HOST_NAME_AZURE} >> ~/.ssh/known_hosts
+#      - deploy:
+#          name: Start Azure Deploy:Rsync
+#          command: |
+#            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+#              rsync -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME_AZURE}@${HOST_NAME_AZURE}:/var/www/html/
+#            fi
       - deploy:
-          name: Start Azure Deploy:Rsync
+          name: Start Azure Deploy:Git Clone
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              rsync -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME_AZURE}@${HOST_NAME_AZURE}:/var/www/html/
+              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "/bin/bash" < ./clone.sh
             fi
       - deploy:
           name: Start Azure Deploy:Shell
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html;sudo sh deploy.sh hana;"
+              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/web;sudo sh deploy.sh hana;"
             fi
