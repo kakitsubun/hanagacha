@@ -44,5 +44,5 @@ jobs:
           name: Start Azure Deploy:Ansible
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/ansible;sudo su;ansible-playbook -i inv/hosts test.yml;"
+              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/ansible;ansible-playbook -i inv/hosts test.yml;"
             fi
