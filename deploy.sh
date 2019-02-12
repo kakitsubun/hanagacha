@@ -1,7 +1,6 @@
 #!/bin/bash
-
 ## CP File
-cp ../env_files/.env ./.env
+cp ../../env_files/.env ./.env
 
 if [ -d "vendor" ]
 then
@@ -13,8 +12,8 @@ mkdir vendor
 if [ $# -gt 0 ]
 then
     echo "Start Change Mode & Owner"
-    chmod -R 755 ./vendor/
-    chmod -R 755 ./storage/
+    chmod -R 777 ./vendor/
+    chmod -R 777 ./storage/
     chown -R $1:$1 ./
 fi
 
@@ -30,3 +29,7 @@ yarn install
 
 # npm
 npm run dev
+
+# TODO
+# Cron
+#
