@@ -2,6 +2,10 @@
 ## CP File
 cp ../../env_files/.env ./.env
 
+yarn install
+npm run dev
+
+
 if [ -d "vendor" ]
 then
     rm -rf vendor
@@ -17,19 +21,8 @@ then
     chown -R $1:$1 ./
 fi
 
-echo "Start Update Project"
 composer install
 php artisan migrate --force
 
-echo "Start Clear Project"
+# Clear
 php artisan view:clear
-
-# yarn
-yarn install
-
-# npm
-npm run dev
-
-# TODO
-# Cron
-#
