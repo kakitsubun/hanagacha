@@ -1,4 +1,5 @@
 #!/bin/bash
+
 ## CP File
 cp ../env_files/.env ./.env
 
@@ -7,11 +8,13 @@ then
     rm -rf vendor
 fi
 mkdir vendor
+
 # Change owner to mode for next deploy
 if [ $# -gt 0 ]
 then
     echo "Start Change Mode & Owner"
-    chmod -R 755 ./
+    chmod -R 755 ./vendor/
+    chmod -R 755 ./storage/
     chown -R $1:$1 ./
 fi
 
@@ -22,4 +25,8 @@ php artisan migrate --force
 echo "Start Clear Project"
 php artisan view:clear
 
+# yarn
+yarn install
 
+# npm
+npm run dev
