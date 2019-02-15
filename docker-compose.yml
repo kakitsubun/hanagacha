@@ -17,6 +17,7 @@ services:
     depends_on:
       - mysql
       - redis
+      - fluentd
     volumes:
       - ./:/var/www/html
     working_dir: /var/www/html/
@@ -35,3 +36,14 @@ services:
     environment:
       - "TZ=Asia/Tokyo"
       - "MYSQL_ROOT_PASSWORD=root"
+
+  fluentd:
+    build: ./docker/fluentd
+    image: hanagacha_fluent
+    ports:
+      - "24224:24224"
+    environment:
+      - 'FLUENTD_CONF=fluentd.conf'
+    volumes:
+      - ./docker/fluentd/log:/fluentd/log
+      - ./docker/fluentd/etc:/fluentd/etc
