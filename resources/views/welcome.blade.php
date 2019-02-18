@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Hana Gacha Test 2
+                    Hana Gacha Test 3
                 </div>
 
                 <div class="links">
