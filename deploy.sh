@@ -19,6 +19,7 @@ then
     chmod -R 777 ./vendor/
     chmod -R 777 ./storage/
     chown -R $1:$1 ./
+    chcon -R -t httpd_sys_rw_content_t storage
 fi
 
 composer install
