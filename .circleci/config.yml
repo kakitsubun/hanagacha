@@ -42,5 +42,5 @@ jobs:
           name: Start Azure Deploy:Deployer
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/web/;dep deploy develop;"
+              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/web/;composer install;dep deploy develop;"
             fi
