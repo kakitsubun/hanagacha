@@ -1,0 +1,4 @@
+localhost:
+  local: true
+  roles: build
+  stage: develop
