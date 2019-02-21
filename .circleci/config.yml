@@ -1,10 +1,8 @@
-# PHP CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-php/ for more details
-#
 version: 2
 jobs:
-  build:
+  deploy:
+    branchs:
+      - master
     docker:
       - image: circleci/php:7.1-browsers
 
@@ -20,14 +18,8 @@ jobs:
       - run:
           name: Start ssh-keyscan
           command: |
-            ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts |
             ssh-keyscan ${HOST_NAME_AZURE} >> ~/.ssh/known_hosts
-#      - deploy:
-#          name: Start Azure Deploy:Rsync
-#          command: |
-#            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-#              rsync -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME_AZURE}@${HOST_NAME_AZURE}:/var/www/html/
-#            fi
+
       - deploy:
           name: Start Azure Deploy:Git Clone
           command: |
@@ -37,12 +29,29 @@ jobs:
       - deploy:
           name: Start Azure Deploy:Shell
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "nobranch" ]; then
               ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/web;sudo sh deploy.sh nginx;"
             fi
       - deploy:
           name: Start Azure Deploy:Ansible
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "nobranch" ]; then
               ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/ansible;sudo ansible-playbook -i inv/hosts test.yml;"
             fi
+      - deploy:
+          name: Start Azure Deploy:Deployer
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/;dep deploy develop;"
+            fi
+#workflow:
+#  version: 2
+#  hanagacha:
+#    jobs:
+#      - test
+#      - build:
+#          requires:
+#            - test
+#      - deploy:
+#          requires:
+#            - build

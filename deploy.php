@@ -29,7 +29,8 @@ add('writable_dirs', [
 
 // Hosts
 inventory('host.yml')
-    ->set('deploy_path', '~/{{application}}');
+    ->stage('develop')
+    ->set('deploy_path', '/var/www/html/hanagacha');
 
 // Task
 task('test_task', function() {
@@ -62,18 +63,17 @@ task('migrate_task:statistics', function () {
     run('php artisan migrate --database="mysql_statistics"');
 });
 task('migrate_task', [
-
+    'migrate_task:force',
     'migrate_task:statistics',
 ]);
 
 task('restart', function () {
     run('sudo service php7.0-fpm restart');
     run('sudo service supervisor restart');
-    run('php artisan queue:restart');
 });
 
 task('copy:shared', function () {
-    $path = get('deploy_path','/var/www/html');
+    $path = get('deploy_path','/var/www/html/hanagacha');
     $shared_path = "${path}/../shared";
     run("cp -R ${shared_path} {{deploy_path}}/");
 });
@@ -85,13 +85,31 @@ after('deploy:failed', 'deploy:unlock');
 before('deploy:shared', 'copy:shared');
 
 // Migrate database before symlink new release. Customized
-before('deploy:symlink', 'migrate_task');
+//before('deploy:symlink', 'migrate_task');
 
 // Yarn + NPM + LINK
-after('deploy:vendors', 'update_task');
-
-// TEST
-//before('update_task:storage_link', 'test_task');
+after('deploy:shared', 'update_task');
 
 // Restart
 after('cleanup', 'restart');
+after('restart', 'artisan:queue:restart');
+
+desc('Deploy your project');
+task('deploy', [
+    'deploy:info',
+    'deploy:prepare',
+    'deploy:lock',
+    'deploy:release',
+    'deploy:update_code',
+    'deploy:shared',
+    'deploy:writable',
+    'artisan:storage:link',
+    'artisan:view:clear',
+    'artisan:config:cache',
+    'artisan:optimize',
+    'deploy:symlink',
+    'deploy:unlock',
+    'cleanup',
+]);
+
+after('deploy', 'success');
