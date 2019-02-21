@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  deploy:
+  build:
     branchs:
       - master
     docker:
@@ -44,14 +44,3 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/;dep deploy develop;"
             fi
-#workflow:
-#  version: 2
-#  hanagacha:
-#    jobs:
-#      - test
-#      - build:
-#          requires:
-#            - test
-#      - deploy:
-#          requires:
-#            - build
