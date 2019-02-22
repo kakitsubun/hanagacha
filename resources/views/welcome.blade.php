@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Hana Gacha !!!
+                    Deployer Success !!!
                 </div>
 
                 <div class="links">
