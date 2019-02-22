@@ -9,7 +9,7 @@ set('application', env('APP_NAME'));
 // Project repository
 set('repository', 'https://github.com/kakitsubun/hanagacha.git');
 // [Optional] Allocate tty for git clone. Default value is false.
-set('git_tty', true);
+set('git_tty', false);
 // Default stage develop
 set('default_stage', 'develop');
 
@@ -68,8 +68,8 @@ task('migrate_task', [
 ]);
 
 task('restart', function () {
-    run('sudo service php7.0-fpm restart');
-    run('sudo service supervisor restart');
+    run('sudo service php-fpm restart');
+//    run('sudo service supervisor restart');
 });
 
 task('copy:shared', function () {
