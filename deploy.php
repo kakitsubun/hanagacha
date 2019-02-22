@@ -82,7 +82,7 @@ task('copy:shared', function () {
 after('deploy:failed', 'deploy:unlock');
 
 // Migrate database before symlink new release. Customized
-before('deploy:shared', 'copy:shared');
+//before('deploy:shared', 'copy:shared');
 
 // Migrate database before symlink new release. Customized
 //before('deploy:symlink', 'migrate_task');
