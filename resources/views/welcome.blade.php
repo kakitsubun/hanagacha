@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Deployer Success !!!!!!!!!!!!
+                    Deployer Success !!!!!!
                 </div>
 
                 <div class="links">
