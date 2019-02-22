@@ -13,6 +13,8 @@ set('git_tty', false);
 // Default stage develop
 set('default_stage', 'develop');
 
+set('writable_mode ', 'chmod');
+
 // Shared files/dirs between deploys 
 add('shared_files', [
     '.env',
