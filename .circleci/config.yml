@@ -1,15 +1,15 @@
 version: 2
 jobs:
-  test:
-    docker:
-      - image: circleci/php:7.1-browsers
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - run:
-          name: Start Build
-          common: |
-            echo "Hello Build"
+#  test:
+#    docker:
+#      - image: circleci/php:7.1-browsers
+#    working_directory: ~/repo
+#    steps:
+#      - checkout
+#      - run:
+#          name: Start Build
+#          common: |
+#            echo "Hello Build"
 
   deploy:
     branchs:
@@ -48,7 +48,7 @@ workflows:
   version: 2
   test_deploy:
     jobs:
-      - test
-      - deploy:
-          requires:
-            - test
+      - deploy
+#      - test
+#          requires:
+#            - test
