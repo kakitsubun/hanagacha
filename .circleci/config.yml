@@ -32,3 +32,9 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/workspace/;composer install;sudo dep deploy develop;"
             fi
+      - deploy:
+          name: Migrate
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/web/current/;php artisan migrate --force;"
+            fi

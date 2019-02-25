@@ -87,7 +87,7 @@ after('deploy:failed', 'deploy:unlock');
 //before('deploy:shared', 'copy:shared');
 
 // Migrate database before symlink new release. Customized
-after('deploy:symlink', 'migrate_task');
+//after('deploy:symlink', 'migrate_task');
 
 // Yarn + NPM + LINK
 after('deploy:shared', 'update_task');
