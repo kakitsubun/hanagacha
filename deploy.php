@@ -32,7 +32,7 @@ add('writable_dirs', [
 // Hosts
 inventory('host.yml')
     ->stage('develop')
-    ->set('deploy_path', '/var/www/html/hanagacha');
+    ->set('deploy_path', '/var/www/html/web');
 
 // Task
 task('test_task', function() {
@@ -75,7 +75,7 @@ task('restart', function () {
 });
 
 task('copy:shared', function () {
-    $path = get('deploy_path','/var/www/html/hanagacha');
+    $path = get('deploy_path','/var/www/html/web');
     $shared_path = "${path}/../shared";
     run("cp -R ${shared_path} {{deploy_path}}/");
 });

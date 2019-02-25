@@ -27,20 +27,8 @@ jobs:
               ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "/bin/bash" < ./clone.sh
             fi
       - deploy:
-          name: Start Azure Deploy:Shell
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "nobranch" ]; then
-              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/web;sudo sh deploy.sh nginx;"
-            fi
-      - deploy:
-          name: Start Azure Deploy:Ansible
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "nobranch" ]; then
-              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/ansible;sudo ansible-playbook -i inv/hosts test.yml;"
-            fi
-      - deploy:
           name: Start Azure Deploy:Deployer
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/web/;composer install;sudo dep deploy develop;"
+              ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/workspace/;composer install;sudo dep deploy develop;"
             fi
