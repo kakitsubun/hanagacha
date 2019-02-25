@@ -66,11 +66,11 @@ task('migrate_task:statistics', function () {
 });
 task('migrate_task', [
     'migrate_task:force',
-    'migrate_task:statistics',
+//    'migrate_task:statistics',
 ]);
 
 task('restart', function () {
-    run('sudo service php-fpm restart');
+    run('sudo service php7.2-fpm restart');
 //    run('sudo service supervisor restart');
 });
 
@@ -87,7 +87,7 @@ after('deploy:failed', 'deploy:unlock');
 //before('deploy:shared', 'copy:shared');
 
 // Migrate database before symlink new release. Customized
-//before('deploy:symlink', 'migrate_task');
+before('deploy:symlink', 'migrate_task');
 
 // Yarn + NPM + LINK
 after('deploy:shared', 'update_task');
