@@ -1,6 +1,16 @@
 version: 2
 jobs:
-  build:
+  test:
+    docker:
+      - image: circleci/php:7.1-browsers
+    working_directory: ~/repo
+    steps:
+      - run:
+          name: Start Build
+          common: |
+            echo "Hello Build"
+
+  deploy:
     branchs:
       - master
     docker:
@@ -38,3 +48,11 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               ssh ${USER_NAME_AZURE}@${HOST_NAME_AZURE} "cd /var/www/html/web/current/;php artisan migrate --force;"
             fi
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
