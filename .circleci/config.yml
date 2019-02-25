@@ -5,6 +5,7 @@ jobs:
       - image: circleci/php:7.1-browsers
     working_directory: ~/repo
     steps:
+      - checkout
       - run:
           name: Start Build
           common: |
@@ -15,21 +16,16 @@ jobs:
       - master
     docker:
       - image: circleci/php:7.1-browsers
-
     working_directory: ~/repo
-
     steps:
       - checkout
-
       - add_ssh_keys:
           fingerprints:
             - "8a:f4:64:2c:0e:42:87:c5:3c:cf:f4:4d:ae:77:df:45"
-
       - run:
           name: Start ssh-keyscan
           command: |
             ssh-keyscan ${HOST_NAME_AZURE} >> ~/.ssh/known_hosts
-
       - deploy:
           name: Start Azure Deploy:Git Clone
           command: |
@@ -50,7 +46,7 @@ jobs:
             fi
 workflows:
   version: 2
-  deploy:
+  test_deploy:
     jobs:
       - test
       - deploy:
