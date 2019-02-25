@@ -1,5 +1,5 @@
 localhost:
-  user: deploy
+  user: root
   local: true
   roles: build
   stage: develop
