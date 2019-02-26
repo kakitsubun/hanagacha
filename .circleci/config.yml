@@ -30,7 +30,7 @@ jobs:
             composer install --no-interaction && \
             php artisan key:generate && \
             php artisan migrate && \
-            ./vendor/bin/phpunit -d memory_limit=512M'
+            ./vendor/bin/phpunit tests/Gacha/GachaTest.php -d memory_limit=512M'
 
   deploy:
     branchs:

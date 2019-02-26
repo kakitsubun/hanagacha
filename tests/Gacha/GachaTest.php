@@ -28,5 +28,9 @@ class GachaTest extends TestCase
         $objGacha = Gacha::find($objPlayerGacha->gacha_id);
         $this->assertInstanceOf(Gacha::class, $objGacha);
         $this->assertEquals($objGacha->is_active, true);
+
+        $objPlayerGachaFromDb = PlayerGacha::where("player_name", $strPlayerName)->first();
+        $this->assertInstanceOf(PlayerGacha::class, $objPlayerGachaFromDb);
+        $this->assertEquals($objPlayerGachaFromDb->gacha_id, $objGacha->id);
     }
 }
