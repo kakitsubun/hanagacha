@@ -1,15 +1,32 @@
 version: 2
 jobs:
-#  test:
-#    docker:
-#      - image: circleci/php:7.1-browsers
-#    working_directory: ~/repo
-#    steps:
-#      - checkout
-#      - run:
-#          name: Start Build
-#          common: |
-#            echo "Hello Build"
+  test:
+#    machine:
+#      - environment:
+#        DB_HOST: 127.0.0.1
+#        DB_DATABASE: hanagacha
+#        DB_USERNAME: ubuntu
+#        DB_PASSWORD:
+#
+#      php:
+#        version: 7.1.0
+#    database:
+#      - override:
+#        php artisan migrate --env=testing
+#    test:
+#      - override:
+#        vendor/bin/phpunit tests/gacha/* -d memory_limit=512M
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: docker-compose build
+      - run:
+          name: Tests
+          command: |
+            docker-compose run hanagacha /bin/bash -c ' \
+            vendor/bin/phpunit tests/gacha/* -d memory_limit=512M'
 
   deploy:
     branchs:
@@ -48,7 +65,7 @@ workflows:
   version: 2
   test_deploy:
     jobs:
-      - deploy
-#      - test
-#          requires:
-#            - test
+      - test
+      - deploy:
+          requires:
+            - test
