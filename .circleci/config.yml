@@ -24,7 +24,8 @@ jobs:
           command: docker-compose build
       - run:
           name: Tests
-          command: docker-compose run php /bin/bash -c "vendor/bin/phpunit tests/gacha -d memory_limit=512M"
+          command: docker-compose run php /bin/bash -c "cmd && ls -al"
+#          command: docker-compose run php /bin/bash -c "vendor/bin/phpunit tests/gacha -d memory_limit=512M"
 #          command: docker-compose run php /bin/bash -c './vendor/bin/phpunit tests/gacha/* -d memory_limit=512M'
 
   deploy:
