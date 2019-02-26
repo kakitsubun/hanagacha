@@ -24,7 +24,13 @@ jobs:
           command: docker-compose build
       - run:
           name: Tests
-          command: docker-compose run php /bin/bash -c "composer install && vendor/bin/phpunit tests/gacha -d memory_limit=512M"
+          command: |
+            docker-compose run php /bin/bash -c '\
+            cp -f env.local .env && \
+            php artisan key:generate && \
+            php artisan migrate && \
+            composer install --no-interaction && \
+            ./vendor/bin/phpunit tests/gacha/ -d memory_limit=512M'
 
   deploy:
     branchs:
