@@ -3,13 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Mockery\Exception;
 use Illuminate\Support\Facades\DB;
-use Response, Input, Log;
+use Input;
+use Log;
+use Mockery\Exception;
+use Response;
 
 class Gacha extends Model
 {
-    public static function store($strName, $intWeight, $intRarity, $boolIsActive, $intGachaId = 0) {
+    public static function store($strName, $intWeight, $intRarity, $boolIsActive, $intGachaId = 0)
+    {
         $objGacha = null;
         if ($intGachaId != 0) {
             $objGacha = self::find($intGachaId);
@@ -34,16 +37,12 @@ class Gacha extends Model
                 $strMessage = "Add/Update Failed";
                 throw new Exception();
             }
-            DB::commit(); 
-        } catch(Exception $e) {
+            DB::commit();
+        } catch (Exception $e) {
             Log::error($e->getMessage());
             DB::rollback();
         }
 
         return $strMessage;
     }
-
-    // public static function delete($intGachaId) {
-
-    // }
 }
