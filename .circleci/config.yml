@@ -50,6 +50,15 @@ jobs:
           fingerprints:
             - "8a:f4:64:2c:0e:42:87:c5:3c:cf:f4:4d:ae:77:df:45"
       - run:
+          name: Setup Env Parames
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "ci-test" ]; then
+              echo "export HOST_IP=$HOST_NAME_AZURE" >> $BASH_ENV
+            fi
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "export HOST_IP=$HOST_NAME_AZURE" >> $BASH_ENV
+            fi
+      - run:
           name: Start ssh-keyscan
           command: |
             ssh-keyscan $HOST_IP >> ~/.ssh/known_hosts
