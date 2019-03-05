@@ -35,6 +35,7 @@ jobs:
   deploy:
     branchs:
       - master
+      - ci-test
     docker:
       - image: circleci/php:7.1-browsers
     working_directory: ~/repo
@@ -46,7 +47,7 @@ jobs:
       - run:
           name: Start ssh-keyscan
           command: |
-            ssh-keyscan ${HOST_NAME_AZURE} >> ~/.ssh/known_hosts
+            ssh-keyscan ${${CIRCLE_BRANCH}_HOST_NAME_AZURE} >> ~/.ssh/known_hosts
       - deploy:
           name: Start Azure Deploy:Git Clone
           command: |
